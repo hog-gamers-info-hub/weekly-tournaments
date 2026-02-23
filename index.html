@@ -1,8 +1,443 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="refresh" content="0; url=weekly_tournaments.pdf">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament roadmaps · Solo · Duo · Clash Squad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f7fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: #1e293b;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -8px rgba(0, 10, 30, 0.15);
+            overflow: hidden;
+            padding: 2.5rem 2rem;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+            background: linear-gradient(145deg, #0f172a, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-left: 6px solid #3b82f6;
+            padding-left: 1.2rem;
+        }
+
+        .subhead {
+            color: #475569;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-top: 0.25rem;
+            padding-left: 1.8rem;
+        }
+
+        /* cards for each tournament block */
+        .tournament-card {
+            background: #ffffff;
+            border: 1px solid #e9eef2;
+            border-radius: 1.5rem;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 6px 12px -6px rgba(0,0,0,0.05);
+            transition: all 0.1s ease;
+        }
+
+        .tournament-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 12px 20px -12px rgba(0,80,200,0.15);
+        }
+
+        .tournament-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tournament-title span {
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+
+        .stage-block {
+            margin: 1.8rem 0 1.2rem 0;
+            padding-left: 0.5rem;
+        }
+
+        .stage-head {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stage-head::before {
+            content: "▹";
+            color: #3b82f6;
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .stage-desc {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 1.2rem;
+            border-left: 4px solid #94a3b8;
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
+        }
+
+        .stage-desc p {
+            margin: 0.3rem 0;
+        }
+
+        .math-row {
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            background: #eef2f6;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            margin: 0.25rem 0;
+        }
+
+        .prize-table {
+            margin: 1.5rem 0 0.5rem;
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .prize-table th {
+            background: #f1f5f9;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            color: #334155;
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 2px solid #cbd5e1;
+        }
+
+        .prize-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        .prize-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .prize-table td:first-child {
+            font-weight: 500;
+        }
+
+        .prize-table td:last-child {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: #0f3b5e;
+        }
+
+        .clash-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .clash-format {
+            flex: 1 1 250px;
+            background: #f9f9fc;
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #dee7ef;
+        }
+
+        .clash-format h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+            border-bottom: 2px dotted #b9c7da;
+            padding-bottom: 0.3rem;
+        }
+
+        .footnote {
+            margin-top: 2rem;
+            background: #fff8e7;
+            border-left: 6px solid #f59e0b;
+            padding: 1.2rem 2rem;
+            border-radius: 1.2rem;
+            font-style: italic;
+            color: #2c3e4f;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+            margin: 1.5rem 0 2rem;
+        }
+
+        /* responsive */
+        @media (max-width: 600px) {
+            .container { padding: 1.5rem 1rem; }
+            h1 { font-size: 2rem; }
+            .tournament-title { font-size: 1.6rem; flex-wrap: wrap; }
+            .stage-head { font-size: 1.2rem; }
+        }
+
+        /* table-like alignment for plain data */
+        .data-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5rem 1.5rem;
+            margin: 1rem 0;
+        }
+        .data-label {
+            font-weight: 600;
+            color: #334155;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h1>🎮 Tournament Roadmap</h1>
+    <div class="subhead">🗺️ Your at-a-glance guide to all tournament formats and prize structures</div>
+
+    <!-- SOLO TOURNAMENT (Page 1) -->
+    <div class="tournament-card">
+        <div class="tournament-title">SOLO TOURNAMENT <span>stage roadmap</span></div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 1 – Qualifier (Free Entry)</div>
+            <div class="stage-desc">
+                <p>Total Players: 100 &nbsp; | &nbsp; Groups: 2 (A & B) &nbsp; | &nbsp; Top 20 players qualify from each group</p>
+                <p><strong>Total Qualified:</strong> 40 Players</p>
+            </div>
+        </div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 2 – Finals</div>
+            <div class="stage-desc">
+                <p>40 Qualified + 60 Paid Players</p>
+                <p>Entry Fee: Rs.5 per Paid Player</p>
+                <p class="math-row">Collection: 60 × 5 = Rs.300</p>
+                <p>Top 15 from each group qualify &nbsp; | &nbsp; <strong>Total Qualified:</strong> 30 Players</p>
+            </div>
+        </div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 3 – Grand Finale</div>
+            <div class="stage-desc">
+                <p>30 Qualified + 20 Paid Players</p>
+                <p>Entry Fee: Rs.10 per Paid Player</p>
+                <p class="math-row">Collection: 20 × 10 = Rs.200</p>
+                <p><span class="math-row">Total Collection: Rs.500</span></p>
+                <p><strong>Top 10 Players Win Prize</strong></p>
+            </div>
+        </div>
+
+        <h3 style="margin: 1rem 0 0.5rem;">🏆 Top 10 Prize Distribution (Total Rs.500)</h3>
+        <table class="prize-table">
+            <thead><tr><th>Position</th><th>Prize (Rs.)</th></tr></thead>
+            <tbody>
+                <tr><td>1st</td><td>150</td></tr>
+                <tr><td>2nd</td><td>90</td></tr>
+                <tr><td>3rd</td><td>70</td></tr>
+                <tr><td>4th</td><td>50</td></tr>
+                <tr><td>5th</td><td>40</td></tr>
+                <tr><td>6th - 10th</td><td>20 Each</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- DUO TOURNAMENT (Page 2 – 72 teams) -->
+    <div class="tournament-card">
+        <div class="tournament-title">DUO TOURNAMENT <span>72 teams · 3 groups</span></div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 1 – Qualifier (Free Entry)</div>
+            <div class="stage-desc">
+                <p>Total Teams: 72 &nbsp; | &nbsp; Groups: 3 (A, B, C) &nbsp; | &nbsp; Top 8 teams qualify from each group</p>
+                <p><strong>Total Qualified:</strong> 24 Teams</p>
+            </div>
+        </div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 2 – Finals</div>
+            <div class="stage-desc">
+                <p>24 Qualified + 24 Paid Teams</p>
+                <p>Entry Fee: Rs.15 per Paid Team</p>
+                <p class="math-row">Collection: 24 × 15 = Rs.360</p>
+                <p>Top 6 teams qualify from each group &nbsp; | &nbsp; <strong>Total Qualified:</strong> 12 Teams</p>
+            </div>
+        </div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 3 – Grand Finale</div>
+            <div class="stage-desc">
+                <p>12 Qualified + 12 Paid Teams</p>
+                <p>Entry Fee: Rs.20 per Paid Team</p>
+                <p class="math-row">Collection: 12 × 20 = Rs.240</p>
+                <p><span class="math-row">Total Collection: Rs.600</span></p>
+                <p><strong>Top 4 Teams Win Prize</strong></p>
+            </div>
+        </div>
+
+        <h3 style="margin: 1rem 0 0.5rem;">🏆 Top 4 Prize Distribution (Total Rs.500)</h3>
+        <table class="prize-table">
+            <thead><tr><th>Position</th><th>Prize (Rs.)</th></tr></thead>
+            <tbody>
+                <tr><td>1st</td><td>200</td></tr>
+                <tr><td>2nd</td><td>150</td></tr>
+                <tr><td>3rd</td><td>100</td></tr>
+                <tr><td>4th</td><td>50</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- DUO TOURNAMENT (Page 3 – 36 teams variant) -->
+    <div class="tournament-card">
+        <div class="tournament-title">DUO TOURNAMENT <span>36 teams · alternate</span></div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 1 – Qualifier (Free Entry)</div>
+            <div class="stage-desc">
+                <p>Total Teams: 36 &nbsp; | &nbsp; Groups: 3 (A, B, C) &nbsp; | &nbsp; Top 4 teams qualify from each group</p>
+                <p><strong>Total Qualified:</strong> 12 Teams</p>
+            </div>
+        </div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 2 – Finals</div>
+            <div class="stage-desc">
+                <p>12 Qualified + 24 Paid Teams</p>
+                <p>Entry Fee: Rs.20 per Paid Team</p>
+                <p class="math-row">Collection: 24 × 20 = Rs.480</p>
+                <p>Top 3 teams qualify from each group &nbsp; | &nbsp; <strong>Total Qualified:</strong> 9 Teams</p>
+            </div>
+        </div>
+
+        <div class="stage-block">
+            <div class="stage-head">Stage 3 – Grand Finale</div>
+            <div class="stage-desc">
+                <p>9 Qualified + 3 Paid Teams</p>
+                <p>Entry Fee: Rs.40 per Paid Team</p>
+                <p class="math-row">Collection: 3 × 40 = Rs.120</p>
+                <p><span class="math-row">Total Collection: Rs.600</span></p>
+                <p><strong>Top 3 Teams Win Prize</strong></p>
+            </div>
+        </div>
+
+        <h3 style="margin: 1rem 0 0.5rem;">🏆 Top 3 Prize Distribution (Total Rs.500)</h3>
+        <table class="prize-table">
+            <thead><tr><th>Position</th><th>Prize (Rs.)</th></tr></thead>
+            <tbody>
+                <tr><td>1st</td><td>250</td></tr>
+                <tr><td>2nd</td><td>150</td></tr>
+                <tr><td>3rd</td><td>100</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- CLASH SQUAD TOURNAMENT (Page 4) -->
+    <div class="tournament-card">
+        <div class="tournament-title">CLASH SQUAD TOURNAMENT <span>two roadmaps</span></div>
+
+        <div class="clash-row">
+            <div class="clash-format">
+                <h4>🔹 Roadmap 1</h4>
+                <p><strong>Stage 1</strong> – 6 Teams (Paid Entry)</p>
+                <p><strong>Stage 2</strong> – 3 Qualified + 1 Paid Team = 4 Teams</p>
+                <p><strong>Grand Final</strong> – 2 Teams (Winner Decided)</p>
+                <p class="math-row">Total Prize Pool: 6 x Entry Fee</p>
+                <p>Distribution: 1st ~ 66% | 2nd ~ 33%</p>
+                <p><em>Example: 6 x 50 = 300 | 1st – 200 | 2nd – 100</em></p>
+            </div>
+            <div class="clash-format">
+                <h4>🔸 Roadmap 2</h4>
+                <p><strong>Stage 1</strong> – 12 Teams (Paid Entry)</p>
+                <p><strong>Stage 2</strong> – 6 Qualified + 2 Paid Teams</p>
+                <p><strong>Stage 3</strong> – 4 Qualified Teams</p>
+                <p><strong>Grand Final</strong> – 2 Teams (Winner Decided)</p>
+            </div>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 0.5rem;">📊 Roadmap 2 Prize Distribution Example (Total Rs.600)</h3>
+        <table class="prize-table" style="max-width: 350px;">
+            <thead><tr><th>Position</th><th>Prize (Rs.)</th></tr></thead>
+            <tbody>
+                <tr><td>1st</td><td>350 <span style="color:#64748b; font-size:0.8rem;">(≈58%)</span></td></tr>
+                <tr><td>2nd</td><td>150 <span style="color:#64748b; font-size:0.8rem;">(25%)</span></td></tr>
+                <tr><td>3rd</td><td>50 <span style="color:#64748b; font-size:0.8rem;">(8%)</span></td></tr>
+                <tr><td>4th</td><td>50 <span style="color:#64748b; font-size:0.8rem;">(8%)</span></td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 0.6rem; color: #334155;">Example percentages as in original PDF</p>
+    </div>
+
+    <!-- PAID CUSTOM MATCHES (Page 5) -->
+    <div class="tournament-card">
+        <div class="tournament-title">PAID CUSTOM MATCHES <span>entry vs winning</span></div>
+
+        <table class="prize-table" style="max-width: 450px;">
+            <thead><tr><th>Entry (Rs.)</th><th>Winning (Rs.)</th></tr></thead>
+            <tbody>
+                <tr><td>30</td><td>55</td></tr>
+                <tr><td>50</td><td>95</td></tr>
+                <tr><td>80</td><td>150</td></tr>
+                <tr><td>100</td><td>190</td></tr>
+                <tr><td>200</td><td>385</td></tr>
+                <tr><td>300</td><td>580</td></tr>
+                <tr><td>500+</td><td>950+</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 0.8rem; font-size:0.95rem;">⬆️ Exact table from PDF page 5</p>
+    </div>
+
+    <!-- FLEXIBILITY NOTE (same as PDF footer) -->
+    <div class="footnote">
+        📌 Note: Prize pool, roadmap structure, entry fees and winnings may be modified depending on total registered players/teams. — as printed in original document.
+    </div>
+
+    <!-- subtle separator and credit (optional) -->
+    <hr />
+   <p style="text-align: center; color: #6c7a8e; font-size:0.9rem;">🚀 Choose your mode, plan your climb — every path leads to glory</p>
 </body>
 </html>
